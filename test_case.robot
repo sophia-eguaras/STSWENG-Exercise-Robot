@@ -61,55 +61,82 @@ Broken Login
     # should be open in products page
     Product Page Should Be Open
     # inventory photos should show a pug (i.e broken inventory)
-    Page Should Contain Image   src:/static/media/sl-404.168b1cce.jpg
+    Page Should Contain Image   xpath=//img[contains(@src, "sl-404.168b1cce.jpg")]
     # close browser
     [Teardown]  Close Browser
 
-*** Comment ***
-# Original code before using keywords
-# Settings
-#Documentation   A test suite with a single test for a valid login
-...
-...             This test follows the example using keywords from
-...             the SeleniumLibrary
-...
-Library         SeleniumLibrary
-
-# Test Cases
-Valid login
-    # open browser
-    Open browser    https://www.saucedemo.com/    edge
-    # set window size
-    Maximize Browser Window
-    Set Selenium Speed    0
-    # check if in login page
-    Page Should Contain Element    login-button
+Sort A to Z
+    # open browser, set window size, check if in login page
+    Open Browser To Login Page
     # input username
-    Input Text    user-name    standard_user
+    Input Username  ${VALID USER}
     # input password
-    Input Password    password    secret_sauce
+    Input Pass    ${VALID PASSWORD}
     # click login button
-    Click Button    login-button
+    Submit Credentials
     # should be open in products page
-    Element Text Should Be    class:title   PRODUCTS
+    Product Page Should Be Open
+    # click the filter
+    Click Element   css:*[class="product_sort_container"]
+    Element Text Should Be  xpath://*[@id="header_container"]/div[2]/div[2]/span/select/option[1]    ${A TO Z}
+    # should have the first product alphabetically
+    Element Text Should Be      css:*[id="item_4_title_link"]      ${FIRST PRODUCT}
     # close browser
-    [Teardown]    Close Browser
+    [Teardown]  Close Browser
 
-Locked Out login
-    # open browser
-    Open browser    https://www.saucedemo.com/    edge
-    # set window size
-    Maximize Browser Window
-    Set Selenium Speed    0
-    # check if in login page
-    Page Should Contain Element    login-button
+Sort Z to A
+    # open browser, set window size, check if in login page
+    Open Browser To Login Page
     # input username
-    Input Text    user-name    locked_out_user
+    Input Username  ${VALID USER}
     # input password
-    Input Password    password    secret_sauce
+    Input Pass    ${VALID PASSWORD}
     # click login button
-    Click Button    login-button
-    # Error message is "Epic sadface: Sorry, this user has been locked out"
-    Element Text Should Be    xpath://*[@id="login_button_container"]/div/form/div[3]/h3    Epic sadface: Sorry, this user has been locked out. 
+    Submit Credentials
+    # should be open in products page
+    Product Page Should Be Open
+    # click the filter
+    Click Element   css:*[class="product_sort_container"]
+    Element Text Should Be  xpath://*[@id="header_container"]/div[2]/div[2]/span/select/option[2]    ${Z TO A}
+    # should have the last product alphabetically
+    Element Text Should Be      css:*[id="item_3_title_link"]  ${LAST PRODUCT}
     # close browser
-    [Teardown]    Close Browser
+    [Teardown]  Close Browser
+
+Sort Low to High
+    # open browser, set window size, check if in login page
+    Open Browser To Login Page
+    # input username
+    Input Username  ${VALID USER}
+    # input password
+    Input Pass    ${VALID PASSWORD}
+    # click login button
+    Submit Credentials
+    # should be open in products page
+    Product Page Should Be Open
+    # click the filter
+    Click Element   css:*[class="product_sort_container"]
+    Element Text Should Be  xpath://*[@id="header_container"]/div[2]/div[2]/span/select/option[3]    ${LOW TO HIGH}
+    # should have the cheap product first
+    Element Text Should Be      css:*[id="item_2_title_link"]  ${CHEAP PRODUCT}
+    # close browser
+    [Teardown]  Close Browser
+
+Sort High to Low
+    # open browser, set window size, check if in login page
+    Open Browser To Login Page
+    # input username
+    Input Username  ${VALID USER}
+    # input password
+    Input Pass    ${VALID PASSWORD}
+    # click login button
+    Submit Credentials
+    # should be open in products page
+    Product Page Should Be Open
+    # click the filter
+    Click Element   css:*[class="product_sort_container"]
+    Element Text Should Be  xpath://*[@id="header_container"]/div[2]/div[2]/span/select/option[4]    ${HIGH TO LOW}
+    # should have the expensive product first
+    Element Text Should Be      css:*[id="item_5_title_link"]  ${EXPENSIVE PRODUCT}
+    # close browser
+    [Teardown]  Close Browser
