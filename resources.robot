@@ -8,13 +8,21 @@ Library         SeleniumLibrary
 
 *** Variables ***
 ${SERVER}               www.saucedemo.com
-${BROWSER}              ff
+${BROWSER}              edge
 ${DELAY}                0
 ${VALID USER}           standard_user
 ${LOCKED OUT USER}      locked_out_user
 ${PROBLEM USER}         problem_user
 ${VALID PASSWORD}       secret_sauce
 ${INVALID PASSWORD}     mali_na_password
+${A TO Z}               Name (A to Z)
+${Z TO A}               Name (Z to A)
+${LOW TO HIGH}          Price (low to high)
+${HIGH TO LOW}          Price (high to low)
+${FIRST PRODUCT}        Sauce Labs Backpack
+${LAST PRODUCT}         Test.allTheThings() T-Shirt (Red)
+${CHEAP PRODUCT}        Sauce Labs Onesie
+${EXPENSIVE PRODUCT}    Sauce Labs Fleece Jacket
 ${LOGIN URL}            https://${SERVER}/
 ${HOME URL}             https://${SERVER}/inventory.html
 
